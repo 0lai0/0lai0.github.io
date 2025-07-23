@@ -1,11 +1,13 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
-  output: 'export',  // 啟用靜態輸出
-  // basePath: '/yclai_website', // 移除 basePath，因為使用自定義域名
+  output: 'export',
   images: {
-    unoptimized: true, // 禁用圖片優化以支持靜態輸出
+    unoptimized: true,
   },
-  trailingSlash: true, // 添加尾隨斜杠以支持靜態託管
+  // 確保資源路徑正確
+  assetPrefix: process.env.NEXT_PUBLIC_BASE_PATH || '',
+  // 確保路由正確
+  basePath: process.env.NEXT_PUBLIC_BASE_PATH || '',
 }
 
 export default nextConfig
