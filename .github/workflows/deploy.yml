@@ -5,6 +5,9 @@ on:
     branches: [ main ]  # 當推送到 main 分支時觸發
   workflow_dispatch:    # 允許手動觸發
 
+permissions:
+  contents: write
+
 jobs:
   build-and-deploy:
     runs-on: ubuntu-latest
@@ -17,12 +20,17 @@ jobs:
         uses: actions/setup-node@v3
         with:
           node-version: '20'
+          cache: 'npm'
 
       - name: Install Dependencies
-        run: npm install
+        run: |
+          npm install
+          npm install sharp
 
       - name: Build
         run: npm run build
+        env:
+          NEXT_PUBLIC_BASE_PATH: ''
 
       - name: Add .nojekyll file
         run: touch out/.nojekyll
@@ -34,4 +42,5 @@ jobs:
         uses: JamesIves/github-pages-deploy-action@v4
         with:
           folder: out
-          branch: gh-pages 
+          branch: gh-pages
+          clean: true 
