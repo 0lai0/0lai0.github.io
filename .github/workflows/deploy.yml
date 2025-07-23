@@ -10,8 +10,8 @@ permissions:
   id-token: write
 
 env:
-  NEXT_PUBLIC_BASE_PATH: ''
   PNPM_VERSION: 8
+  NODE_ENV: production
 
 concurrency:
   group: "pages"
@@ -60,8 +60,13 @@ jobs:
     - name: Build
       run: |
         pnpm run build
+        # 創建必要的文件
         touch out/.nojekyll
         cp public/CNAME out/
+        # 如果沒有 404 頁面，創建一個基本的
+        if [ ! -f out/404.html ]; then
+          cp out/index.html out/404.html
+        fi
       
     - name: Setup Pages
       uses: actions/configure-pages@v4
