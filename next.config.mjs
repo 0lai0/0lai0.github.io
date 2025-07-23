@@ -1,13 +1,8 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
-  eslint: {
-    ignoreDuringBuilds: true,
-  },
-  typescript: {
-    ignoreBuildErrors: true,
-  },
+  output: 'export',  // 啟用靜態輸出
   images: {
-    unoptimized: true,
+    unoptimized: true, // 禁用圖片優化以支持靜態輸出
   },
 }
 
