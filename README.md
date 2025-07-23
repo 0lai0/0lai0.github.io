@@ -67,3 +67,4 @@ yclai_website/
    ```bash
    pnpm deploy
    ```
+# Deploy trigger
